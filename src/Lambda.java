@@ -1,40 +1,39 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
 public class Lambda {
-    interface Check{
-        String check(int a);
-    }
+    public static void main(String[] args) throws IOException {
+        MyMethods newObj = new MyMethods();
+        PerformOperation po;
+        String answer = null;
+        boolean ret = false;
 
-    public static Check isOdd() {
-        return (a) -> (a % 2 == 0)? "Even": "Odd";
-    }
+        BufferedReader bufferR = new BufferedReader(new InputStreamReader(System.in));
+        int T = Integer.parseInt(bufferR.readLine());
 
-    public static Check isPrime() {
-        return (a) -> {
-            if(a == 1) return "Prime";
-            else
-            {
-                for (int i =  2; i < Math.sqrt(a); i++)
-                    if(a % i == 0) return "Composite";
-                return "Prime";
+        while (T-- > 0) {
+            String s = bufferR.readLine().trim();
+            StringTokenizer st = new StringTokenizer(s);
+            int ch = Integer.parseInt(st.nextToken());
+            int num = Integer.parseInt(st.nextToken());
+            if (ch == 1) {
+                po = newObj.isOdd();
+                ret = newObj.checker(po, num);
+                answer = (ret) ? "ODD" : "EVEN";
+            } else if (ch == 2) {
+                po = newObj.isPrime();
+                ret = newObj.checker(po, num);
+                answer = (ret) ? "PRIME" : "COMPOSITE";
+            } else if (ch == 3) {
+                po = newObj.isPalindrome();
+                ret = newObj.checker(po, num);
+                answer = (ret) ? "PALINDROME" : "NOT PALINDROME";
             }
-        };
-
-    }
-
-    public static Check isPalindrome(){
-        return (a) -> {
-            int sum = 0;
-            int reminder, temp = 0;
-            while(a > 0){
-                reminder = a % 10;
-                sum = (sum * 10) + reminder;
-                a = a/10;
-            }
-            if(temp == sum){
-                return "Palindrome";
-            }else return "Not Palindrome";
-        };
+            System.out.println(answer);
+        }
 
     }
 
 }
-    
